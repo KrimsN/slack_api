@@ -23,9 +23,9 @@ def get_timestamp():
 
 
 class SlackApi:
+
     _URL_QUERY_T = '?_x_id={_x_id}&_x_csid={_x_csid}&slack_route={slack_route}&_x_version_ts={_x_version_ts}&_x_gantry={_x_gantry}'
     _URL_T = "https://{company_url}/api/{action}" + _URL_QUERY_T
-
 
     def __init__(self, user_token: str, user_id: str, company_url: str, cookies: dict, headers: dict):
         self._user_token = user_token
