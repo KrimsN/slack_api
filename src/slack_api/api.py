@@ -10,8 +10,7 @@ import json
 
 from .enums import (
     Emoji,
-    ReactionAction,
-    ConversationAction
+    ApiAction
 )
 
 
@@ -25,8 +24,8 @@ def get_timestamp():
 
 class SlackApi:
     _URL_QUERY_T = '?_x_id={_x_id}&_x_csid={_x_csid}&slack_route={slack_route}&_x_version_ts={_x_version_ts}&_x_gantry={_x_gantry}'
-    _REACTIONS_ACTION_URL_T = "https://{company_url}/api/reactions.{action}" + _URL_QUERY_T
-    _CONVERSATIONS_URL_T = "https://{company_url}/api/conversations.{action}" + _URL_QUERY_T
+    _URL_T = "https://{company_url}/api/{action}" + _URL_QUERY_T
+
 
     def __init__(self, user_token: str, user_id: str, company_url: str, cookies: dict, headers: dict):
         self._user_token = user_token
@@ -44,7 +43,7 @@ class SlackApi:
 
     def reactions(
             self,
-            action_type: t.Union[ReactionAction, str],
+            action_type: t.Union[ApiAction.ReactionAction, str],
             slack_route: str,
             channel: str,
             message_id: str,
@@ -74,7 +73,7 @@ class SlackApi:
             data_params = dict()
         if isinstance(emoji, Emoji):
             emoji = emoji.value
-        if isinstance(action_type, ReactionAction):
+        if isinstance(action_type, ApiAction.ReactionAction):
             action_type = action_type.value
 
         default_reactions_url_params = {
@@ -97,7 +96,7 @@ class SlackApi:
         url_params = default_reactions_url_params | url_params
         data_params = default_reactions_data_params | data_params
 
-        request_url = self._REACTIONS_ACTION_URL_T.format(**url_params)
+        request_url = self._URL_T.format(**url_params)
 
         reactions_add_response = self._request_json(request_url, data_params)
         return reactions_add_response
@@ -129,7 +128,7 @@ class SlackApi:
 
         default_conversations_history_url_params = {
             'company_url': self._company_url,
-            'action': ConversationAction.MessageHistory,
+            'action': ApiAction.ConversationAction.MessageHistory,
             '_x_id': "{user_code}-{timestamp}".format(user_code=self._user_id, timestamp=get_timestamp()),
             'slack_route': slack_route,
         } | self.default_url_params
@@ -152,7 +151,7 @@ class SlackApi:
         url_params = default_conversations_history_url_params | url_params
         data_params = default_conversations_history_data_params | data_params
 
-        request_url = self._CONVERSATIONS_URL_T.format(**url_params)
+        request_url = self._URL_T.format(**url_params)
 
         messages_info = self._request_json(request_url, data_params)
         return messages_info
@@ -184,7 +183,7 @@ class SlackApi:
             data_params = dict()
 
         default_conversations_history_url_params = {
-            'action': ConversationAction.RepliesHistory,
+            'action': ApiAction.ConversationAction.RepliesHistory,
             '_x_id': "{user_code}-{timestamp}".format(user_code=self._user_id, timestamp=get_timestamp()),
             'slack_route': slack_route
         } | self.default_url_params
@@ -204,7 +203,7 @@ class SlackApi:
         url_params = default_conversations_history_url_params | url_params
         data_params = default_conversations_history_data_params | data_params
 
-        request_url = self._CONVERSATIONS_URL_T.format(**url_params)
+        request_url = self._URL_T.format(**url_params)
 
         replies = self._request_json(request_url, data_params)
         return replies
