@@ -53,6 +53,57 @@
             'reply_users': ['U01NW0EKVFT'], 
             'subscribed': True, 
             'last_read': '1614175423.000900'
+        },
+        {
+            'client_msg_id': '46518757-3cd1-41a4-9cf7-bd5c8890a8a1', 
+            'type': 'message', 
+            'text': 'У нас появилась новая задача на ревью:) ABC-12345: [Тема данной задачи - 0] Имя Фамилия (<mailto:mail@example.com>)', 
+            'user': 'U01NW0EKVFT', 
+            'ts': '1613990098.002600', 
+            'team': 'T01NAHZ7170', 
+            'blocks': [
+                {
+                    'type': 'rich_text', 
+                    'block_id': '24YV4', 
+                    'elements': [
+                        {
+                            'type': 'rich_text_section',
+                            'elements': [
+                                {
+                                    'type': 'text', 
+                                    'text': 'У нас появилась новая задача на ревью:) ABC-12345: [Тема данной задачи - 0] Имя Фамилия ('
+                                }, 
+                                {
+                                    'type': 'link', 
+                                    'url': 'mailto:mail@example.com', 
+                                    'text': 'mail@example.com'
+                                }, 
+                                {
+                                    'type': 'text', 
+                                    'text': ')'
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ], 
+            'reactions': [
+                {
+                    'name': 'eyes', 
+                    'users': ['U01NW0EKVFT'], 
+                    'count': 1
+                }, 
+                {
+                    'name': 'innocent', 
+                    'users': ['U01NW0EKVFT'], 
+                    'count': 1
+                }, 
+                {
+                    'name': 'white_check_mark', 
+                    'users': ['U01NW0EKVFT'], 
+                    'count': 1
+                }
+            ]
         }
     ], 
     'has_more': False, 
